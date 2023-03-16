@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/selectUserFragment"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/selectUserFragment"
+        android:name="com.example.interfaces.selectUser.SelectUserFragment"
+        android:label="fragment_select_user"
+        tools:layout="@layout/fragment_select_user" />
+
+    <fragment
+        android:id="@+id/userContentFragment"
+        android:name="com.example.interfaces.main.UserContentFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_user_content" />
+
+    <fragment
+        android:id="@+id/remouteFragment"
+        android:name="com.example.interfaces.remoute.RemouteFragment"
+        android:label="fragment_remoute"
+        tools:layout="@layout/fragment_remoute" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.interfaces.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.interfaces.user.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.interfaces.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+
+</navigation>

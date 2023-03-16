@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">interfaces</string>
+
+    <string name="select_user_toolbar">Кто будет использовать?</string>
+    <string name="user_content_toolbar">Главная</string>
+    <string name="remoute_toolbar">Пульт</string>
+    <string name="user_toolbar">Пользователь</string>
+
+    <string name="menu1">Главная</string>
+    <string name="menu2">Пульт</string>
+    <string name="menu3">Настройки</string>
+    <string name="menu4">Сменить пользователя</string>
+
+    <string name="content_sites">Онлайн</string>
+    <string name="content_channels">ТВ каналы</string>
+    <string name="content_music">Музыка</string>
+    <string name="content_games">Игры</string>
+    <string name="content_favourites">Избранное</string>
+
+    <string name="settings_language">Язык</string>
+    <string name="settings_brightness">Яркость</string>
+    <string name="settings_color">Цвет</string>
+    <string name="settings_contrast">Контрастность</string>
+    <string name="settings_sharpness">Резкость</string>
+    <string name="settings_turn_on_by_schedule">Включение по расписанию</string>
+    <string name="settings_turn_off_by_schedule">Выключение по расписанию</string>
+
+    <string name="language_ru">Русский</string>
+    <string name="language_en">English</string>
+    <string name="language_de">Deutsch</string>
+    <string name="language_fr">Français</string>
+
+    <string name="view_all">смотреть все</string>
+
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <string name="save_data_success">Данные сохранены</string>
+    <string name="delete_user_success">Пользователь удален</string>
+
+    <string name="setting_loading_error">Ошибка! \nПопробуйте обновить приложение</string>
+
+    <string name="user_data_hint">Имя пользователя</string>
+    <string name="save_user_data_btn_text">Сохранить</string>
+    <string name="delete_user_data_btn_text">Удалить пользователя</string>
+
+    <string name="new_username_error">Имя пользователя некорректное</string>
+
+    <string name="delete_user_confirm_text">Вы уверены, что хотите удалить пользователя?</string>
+
+    <string name="content_game_selected">Приложение %s запущено</string>
+</resources>
