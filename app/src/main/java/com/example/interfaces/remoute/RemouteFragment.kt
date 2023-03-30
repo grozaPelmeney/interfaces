@@ -13,11 +13,10 @@ import com.example.interfaces.R
 import com.example.interfaces.databinding.FragmentRemouteBinding
 import com.example.interfaces.main.UserContentFragment
 import com.example.interfaces.models.User
+import com.example.interfaces.schedules.SchedulesFragment
 import com.example.interfaces.selectUser.SelectUserFragment
 import com.example.interfaces.settings.SettingsFragment
-import com.example.interfaces.settings.SettingsViewModel
 import com.example.interfaces.user.UserFragment
-import com.example.interfaces.user.UserViewModel
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.iconRes
@@ -101,14 +100,19 @@ class RemouteFragment : Fragment() {
                 },
                 PrimaryDrawerItem().apply {
                     nameRes = R.string.menu3
-                    iconRes = R.drawable.ic_menu_settings
+                    iconRes = R.drawable.ic_calendar
                     identifier = 3
+                },
+                PrimaryDrawerItem().apply {
+                    nameRes = R.string.menu4
+                    iconRes = R.drawable.ic_menu_settings
+                    identifier = 4
                 },
                 DividerDrawerItem(),
                 PrimaryDrawerItem().apply {
-                    nameRes = R.string.menu4
+                    nameRes = R.string.menu5
                     iconRes = R.drawable.ic_menu_logout
-                    identifier = 4
+                    identifier = 5
                 },
             )
 
@@ -126,9 +130,12 @@ class RemouteFragment : Fragment() {
                     /* current */
                 }
                 3 -> {
-                    SettingsFragment.open(findNavController(), user)
+                    SchedulesFragment.open(findNavController(), user)
                 }
                 4 -> {
+                    SettingsFragment.open(findNavController(), user)
+                }
+                5 -> {
                     SelectUserFragment.open(findNavController())
                 }
                 else -> {  }

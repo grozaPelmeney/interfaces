@@ -1,5 +1,6 @@
-package com.example.interfaces.settings
+package com.example.interfaces.schedules
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -12,24 +13,34 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.interfaces.R
-import com.example.interfaces.databinding.FragmentSettingsBinding
+import com.example.interfaces.databinding.FragmentSchedulesBinding
 import com.example.interfaces.main.UserContentFragment
 import com.example.interfaces.models.User
 import com.example.interfaces.remoute.RemouteFragment
-import com.example.interfaces.schedules.SchedulesFragment
 import com.example.interfaces.selectUser.SelectUserFragment
+import com.example.interfaces.settings.SettingAdapter
+import com.example.interfaces.settings.SettingsFragment
+import com.example.interfaces.settings.SettingsViewModel
 import com.example.interfaces.user.UserFragment
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.iconRes
 import com.mikepenz.materialdrawer.model.interfaces.nameRes
 import com.mikepenz.materialdrawer.model.interfaces.nameText
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlin.random.Random
 
-class SettingsFragment : Fragment() {
-    private var binding: FragmentSettingsBinding? = null
-    private val viewModel by lazy { ViewModelProvider(this).get(SettingsViewModel::class.java) }
-    private val settingsAdapter by lazy { SettingAdapter() }
+class SchedulesFragment : Fragment() {
+    private var binding: FragmentSchedulesBinding? = null
+    private val viewModel by lazy { ViewModelProvider(this).get(SchedulesViewModel::class.java) }
+    
+    private val scheduleOnAdapter by lazy { SettingAdapter(adapterForSettings = false) }
+    private val scheduleOffAdapter by lazy { SettingAdapter(adapterForSettings = false) }
+
+    private var test = 1
 
     private var isRemouteActive = false
         set(value) {
@@ -39,7 +50,7 @@ class SettingsFragment : Fragment() {
     private var isPaused = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        binding = FragmentSchedulesBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -53,7 +64,7 @@ class SettingsFragment : Fragment() {
         initRemoute()
         setOnClicks()
 
-        viewModel.loadSettings()
+        viewModel.loadSchedules()
     }
 
     private fun setOnClicks() {
@@ -73,20 +84,25 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initObservers() {
-        viewModel.settingsL.observe(viewLifecycleOwner) {
-            settingsAdapter.setDataSource(it)
+        viewModel.scheduleOnL.observe(viewLifecycleOwner) {
+            scheduleOnAdapter.setDataSource(it)
+        }
+        
+        viewModel.scheduleOffL.observe(viewLifecycleOwner) {
+            scheduleOffAdapter.setDataSource(it)
         }
     }
 
     private fun fillToolbar() {
-        binding?.toolbar?.titleTv?.text = getText(R.string.settings_toolbar)
+        binding?.toolbar?.titleTv?.text = getText(R.string.schedules_toolbar)
         binding?.toolbar?.menuBtn?.setOnClickListener {
             binding?.slider?.drawerLayout?.open()
         }
     }
 
     private fun initAdapter() {
-        binding?.settingsRv?.adapter = settingsAdapter
+        binding?.turnOnScheduleRv?.adapter = scheduleOnAdapter
+        binding?.turnOffScheduleRv?.adapter = scheduleOffAdapter
     }
 
     private fun showOrHideRemoute(show: Boolean) {
@@ -178,10 +194,10 @@ class SettingsFragment : Fragment() {
                     RemouteFragment.open(findNavController(), user)
                 }
                 3 -> {
-                    SchedulesFragment.open(findNavController(), user)
+                    /* current */
                 }
                 4 -> {
-                    /* current */
+                    SettingsFragment.open(findNavController(), user)
                 }
                 5 -> {
                     SelectUserFragment.open(findNavController())
@@ -190,14 +206,45 @@ class SettingsFragment : Fragment() {
             }
             /*return*/ false
         }
+
+        startHardOperation()
+    }
+
+    override fun onStop() {
+        super.onStop()
+     //   stopHardOperation()
+    }
+
+    var doHardOperation = true
+    val array = arrayListOf<Int>()
+
+    private fun startHardOperation() {
+        repeat(Random.nextInt(from = 100, until = 1000)) {
+            CoroutineScope(Dispatchers.IO).launch {
+                for (i in 0 until 10000) {
+                    if (!doHardOperation) break
+
+                    array.add(Random.nextInt())
+
+                    if (i % 100 == 0)  {
+                        delay(Random.nextLong(until = 50))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun stopHardOperation() {
+        doHardOperation = false
+        array.clear()
     }
 
     companion object {
-        private const val TAG = "SettingsFragment"
+        private const val TAG = "SchedulesFragment"
 
         fun open(navController: NavController, user: User?) {
-            SettingsViewModel.userInit = user
-            navController.navigate(R.id.settingsFragment)
+            SchedulesViewModel.userInit = user
+            navController.navigate(R.id.scheduleFragment)
         }
     }
 }

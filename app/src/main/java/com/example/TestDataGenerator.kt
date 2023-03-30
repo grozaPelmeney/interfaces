@@ -1,5 +1,9 @@
 package com.example
 
+import android.os.Build
+import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
 import com.example.interfaces.R
 import com.example.interfaces.models.*
 
@@ -150,6 +154,25 @@ object TestDataGenerator {
         )
     }
 
+    fun getSchedules(): List<Setting> {
+        val days = listOf(R.string.monday, R.string.tuesday, R.string.wednesday, R.string.thursday, R.string.friday, R.string.saturday, R.string.sunday)
+
+        val schedules = mutableListOf<Setting>()
+
+        days.forEach { dayNameRes ->
+            schedules.add(
+                Setting.CheckWithTimeSetting(
+                    id = 1,
+                    nameRes = dayNameRes,
+                    isSelected = false,
+                    value = ""
+                )
+            )
+        }
+
+        return schedules
+    }
+
     fun getSettings(): List<Setting> {
         val settings = mutableListOf<Setting>()
 
@@ -180,24 +203,6 @@ object TestDataGenerator {
                 values = languageValues
             )
         settings.add(languageSetting)
-
-        val turnOnBySchedule =
-            Setting.CheckWithTimeSetting(
-                id = 1,
-                nameRes = R.string.settings_turn_on_by_schedule,
-                isSelected = false,
-                value = ""
-            )
-        settings.add(turnOnBySchedule)
-
-        val turnOffBySchedule =
-            Setting.CheckWithTimeSetting(
-                id = 2,
-                nameRes = R.string.settings_turn_off_by_schedule,
-                isSelected = false,
-                value = ""
-            )
-        settings.add(turnOffBySchedule)
 
         val brightnessSetting =
             Setting.RangeSetting(
@@ -244,5 +249,42 @@ object TestDataGenerator {
         settings.add(colorSetting)
 
         return settings
+    }
+
+    fun getTvPrograms(): List<String> {
+        val programs = listOf("Трансформеры", "Сверхъестественное", "Во все тяжкие", "Первому игроку  приготовиться", "Неудержимые", "Рик и Морти", "Minecraft шоу", "Великолепный век", "С приветом по планетaм", "Воронины")
+        return programs.shuffled()
+    }
+
+    fun getTvProgramText(): Spanned {
+        val text = StringBuilder()
+
+        val times = listOf("00:00 - 06:00", "06:00 - 07:00", "07:00 - 10:00", "10:00 - 12:00", "12:00 - 15:00", "15:00 - 17:00", "17:00 - 20:00", "20:00 - 22:00", "22:00 - 00:00")
+
+        times.forEachIndexed { i, time ->
+            val program =
+                when (i) {
+                    0 -> "Музыка"
+                    1 -> "Новости"
+                    else -> getTvPrograms().random()
+                }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                text.append("<b>$program</b><br>")
+                text.append("$time<br><br>")
+            } else {
+                text.append("$program\n")
+                text.append("$time\n\n")
+            }
+        }
+
+        val spannedText =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(text.toString(), 0)
+            } else {
+                SpannableString.valueOf(text)
+            }
+
+        return spannedText
     }
 }

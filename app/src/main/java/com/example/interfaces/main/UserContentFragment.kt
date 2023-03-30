@@ -1,6 +1,5 @@
 package com.example.interfaces.main
 
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,14 +15,12 @@ import com.example.interfaces.Session
 import com.example.interfaces.Utils
 import com.example.interfaces.databinding.FragmentUserContentBinding
 import com.example.interfaces.models.ContentType
-import com.example.interfaces.models.User
 import com.example.interfaces.remoute.RemouteFragment
-import com.example.interfaces.remoute.RemouteViewModel
+import com.example.interfaces.schedules.SchedulesFragment
 import com.example.interfaces.selectUser.SelectUserFragment
 import com.example.interfaces.settings.SettingsFragment
-import com.example.interfaces.settings.SettingsViewModel
+import com.example.interfaces.tv_program.TvProgramFragment
 import com.example.interfaces.user.UserFragment
-import com.example.interfaces.user.UserViewModel
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.iconRes
@@ -138,14 +135,19 @@ class UserContentFragment : Fragment() {
                 },
                 PrimaryDrawerItem().apply {
                     nameRes = R.string.menu3
-                    iconRes = R.drawable.ic_menu_settings
+                    iconRes = R.drawable.ic_calendar
                     identifier = 3
+                },
+                PrimaryDrawerItem().apply {
+                    nameRes = R.string.menu4
+                    iconRes = R.drawable.ic_menu_settings
+                    identifier = 4
                 },
                 DividerDrawerItem(),
                 PrimaryDrawerItem().apply {
-                    nameRes = R.string.menu4
+                    nameRes = R.string.menu5
                     iconRes = R.drawable.ic_menu_logout
-                    identifier = 4
+                    identifier = 5
                 },
             )
 
@@ -163,9 +165,12 @@ class UserContentFragment : Fragment() {
                     RemouteFragment.open(findNavController(), user)
                 }
                 3 -> {
-                    SettingsFragment.open(findNavController(), user)
+                    SchedulesFragment.open(findNavController(), user)
                 }
                 4 -> {
+                    SettingsFragment.open(findNavController(), user)
+                }
+                5 -> {
                     SelectUserFragment.open(findNavController())
                 }
                 else -> {  }
@@ -264,7 +269,7 @@ class UserContentFragment : Fragment() {
                 }
 
                 ContentType.TV_CHANNEL -> {
-
+                    TvProgramFragment.open(findNavController(), channel = content)
                 }
 
                 ContentType.MUSIC -> {

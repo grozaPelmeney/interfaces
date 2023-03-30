@@ -4,18 +4,29 @@
     <string name="select_user_toolbar">Кто будет использовать?</string>
     <string name="user_content_toolbar">Главная</string>
     <string name="remoute_toolbar">Пульт</string>
+    <string name="settings_toolbar">Пульт</string>
+    <string name="schedules_toolbar">Расписания</string>
     <string name="user_toolbar">Пользователь</string>
 
     <string name="menu1">Главная</string>
     <string name="menu2">Пульт</string>
-    <string name="menu3">Настройки</string>
-    <string name="menu4">Сменить пользователя</string>
+    <string name="menu3">Расписания</string>
+    <string name="menu4">Настройки</string>
+    <string name="menu5">Сменить пользователя</string>
 
     <string name="content_sites">Онлайн</string>
     <string name="content_channels">ТВ каналы</string>
     <string name="content_music">Музыка</string>
     <string name="content_games">Игры</string>
     <string name="content_favourites">Избранное</string>
+
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресенье</string>
 
     <string name="settings_language">Язык</string>
     <string name="settings_brightness">Яркость</string>
@@ -37,6 +48,9 @@
 
     <string name="save_data_success">Данные сохранены</string>
     <string name="delete_user_success">Пользователь удален</string>
+
+    <string name="turn_on_schedule_title">Автоматическое включение</string>
+    <string name="turn_off_schedule_title">Автоматическое выключение</string>
 
     <string name="setting_loading_error">Ошибка! \nПопробуйте обновить приложение</string>
 

@@ -19,7 +19,7 @@ import com.example.interfaces.models.SettingType
 import java.util.Calendar
 import kotlin.math.min
 
-class SettingAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SettingAdapter(private val adapterForSettings: Boolean = true): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var settings = listOf<Setting>()
 
     fun setDataSource(settings: List<Setting>) {
@@ -126,7 +126,9 @@ class SettingAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     }
 
                     override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                        Session.updateSetting(setting)
+                        if (adapterForSettings) {
+                            Session.updateSetting(setting)
+                        }
                     }
                 })
             }
@@ -148,7 +150,9 @@ class SettingAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     binding.fieldTv.text = context.getText(selectedItem.nameRes)
                     setting.selectedValueId = selectedItem.id
 
-                    Session.updateSetting(setting)
+                    if (adapterForSettings) {
+                        Session.updateSetting(setting)
+                    }
                 }
 
                 return@setOnMenuItemClickListener true
@@ -216,7 +220,9 @@ class SettingAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     binding.field.isEnabled = setting.isSelected
                     binding.field.alpha = if (setting.isSelected) 1f else 0.5f
 
-                    Session.updateSetting(setting)
+                    if (adapterForSettings) {
+                        Session.updateSetting(setting)
+                    }
                 }
 
                 binding.field.setOnClickListener {
@@ -225,7 +231,9 @@ class SettingAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                             setting.value = "${hour}:${minute}"
                             binding.fieldTv.text = setting.value
 
-                            Session.updateSetting(setting)
+                            if (adapterForSettings) {
+                                Session.updateSetting(setting)
+                            }
                         }
                     )
                 }

@@ -2,13 +2,17 @@ package com.example.interfaces.main
 
 import android.os.Handler
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interfaces.R
 import com.example.interfaces.Session
 import com.example.interfaces.Utils
 import com.example.interfaces.databinding.UserContentItemBinding
+import com.example.interfaces.double_click_lib.DoubleClick
+import com.example.interfaces.double_click_lib.DoubleClickListener
 import com.example.interfaces.models.Content
+import java.util.*
 
 class UserContentItemAdapter(): RecyclerView.Adapter<UserContentItemAdapter.ViewHolder>() {
     private var content = listOf<Content>()
@@ -53,20 +57,20 @@ class UserContentItemAdapter(): RecyclerView.Adapter<UserContentItemAdapter.View
                 )
             )
 
-            var doubleClick = false
-            binding.root.setOnClickListener {
-                if (doubleClick) {
-                    doOnItemDoubleClick?.invoke(contentItem)
-                    notifyItemChanged(absoluteAdapterPosition)
-                }
-                else {
-                    doOnItemClick?.invoke(contentItem)
-                }
+            binding.root.setOnClickListener(
+                DoubleClick(object : DoubleClickListener {
+                    override fun onSingleClickEvent(view: View?) {
+                        doOnItemClick?.invoke(contentItem)
+                        notifyItemChanged(absoluteAdapterPosition)
+                    }
 
-                doubleClick = true
-                Handler().postDelayed({ doubleClick = false }, 2000)
-            }
+                    override fun onDoubleClickEvent(view: View?) {
+                        doOnItemDoubleClick?.invoke(contentItem)
+                        notifyItemChanged(absoluteAdapterPosition)
+                    }
 
+                })
+            )
         }
     }
 }

@@ -24,10 +24,22 @@
         tools:layout="@layout/fragment_remoute" />
 
     <fragment
+        android:id="@+id/tvScheduleFragment"
+        android:name="com.example.interfaces.tv_program.TvProgramFragment"
+        android:label="fragment_tv_schedule"
+        tools:layout="@layout/fragment_tv_program" />
+
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.interfaces.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.interfaces.schedules.SchedulesFragment"
+        android:label="fragment_schedules"
+        tools:layout="@layout/fragment_schedules" />
 
     <fragment
         android:id="@+id/userFragment"
